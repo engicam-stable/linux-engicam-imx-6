@@ -99,7 +99,7 @@
 		enable-active-high;
 	};
 
-	usdhc3_pwrseq: usdhc3_pwrseq {
+	usdhc2_pwrseq: usdhc2_pwrseq {
 		compatible = "mmc-pwrseq-simple";
 	};
 };
@@ -304,12 +304,12 @@
 	status = "okay";
 };
 
-&usdhc2 {
+&usdhc3 {
 	#address-cells = <1>;
 	#size-cells = <0>;
 	max-frequency = <25000000>;
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_usdhc2>;
+	pinctrl-0 = <&pinctrl_usdhc3>;
 	vmmc-supply = <&wl_reg_on>;
 	bus-width = <4>;
 	no-1-8-v;
@@ -324,10 +324,10 @@
 	};
 };
 
-&usdhc3 {  /* sdcard */
+&usdhc2 {  /* sdcard */
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_usdhc3>;
-	mmc-pwrseq = <&usdhc3_pwrseq>;
+	pinctrl-0 = <&pinctrl_usdhc2>;
+	mmc-pwrseq = <&usdhc2_pwrseq>;
 	//cd-gpios = <&pcal6524 15 GPIO_ACTIVE_LOW>;
 	broken-cd;
 	max-frequency = <25000000>;
