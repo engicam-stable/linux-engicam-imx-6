@@ -368,7 +368,7 @@ static int imx91_clocks_probe(struct platform_device *pdev)
 	imx_register_uart_clocks();
 
 	clk_set_parent(clks[IMX91_CLK_CCM_CKO1]->clk, clks[IMX91_CLK_24M]->clk);
-	clk_set_rate(clks[IMX91_CLK_CCM_CKO1]->clk,12000000);
+	clk_set_rate(clks[IMX91_CLK_CCM_CKO1]->clk,24000000);
 	clk_prepare_enable(clks[IMX91_CLK_CCM_CKO1]->clk);
 
 	return 0;

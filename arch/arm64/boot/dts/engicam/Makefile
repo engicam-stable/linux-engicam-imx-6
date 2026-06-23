@@ -22,6 +22,7 @@ dtb-$(CONFIG_ARCH_MXC) += \
 			  imx91-microgea-microdev2.dtb \
 			  imx91-microgea-microdev3.dtb \
 			  imx91-microgea-micro5.dtb \
+			  imx91-microgea-evb.dtb \
 			  imx95-icore-starterkit.dtb \
 			  imx95-icore-ctouch31-amp10.dtb \
 			  imx95-smarcore-multimedia-4k.dtb \

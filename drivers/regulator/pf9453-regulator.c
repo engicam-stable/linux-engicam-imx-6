@@ -664,7 +664,7 @@ static int pf9453_i2c_probe(struct i2c_client *i2c)
 	}
 
 	/* Check your board and dts for match the right pmic */
-	if ((device_id >> 4) == 0xB && type == PF9453_TYPE_PF9453) {
+	if ((device_id >> 4) != 0xB && type == PF9453_TYPE_PF9453) {
 		dev_err(&i2c->dev, "Device id(%x) mismatched\n",
 			device_id >> 4);
 		return -EINVAL;
