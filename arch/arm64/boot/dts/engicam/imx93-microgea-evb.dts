@@ -15,7 +15,7 @@
 };
 
 / {
-	model = "NXP i.MX93 microgea - EVB | ";
+	model = "NXP i.MX93 Microgea EValuation Board revB\n";
 	compatible = "engi,imx93" ,"fsl,imx93";
 
 	aliases {
@@ -371,6 +371,7 @@
 		reg = <0x20>;
         interrupt-parent = <&gpio4>;
 	    interrupts = <27 IRQ_TYPE_LEVEL_LOW>;
+		/* this interrupt is not actually connected, but needed a fake interrupt */
 		interrupt-controller;
 		#interrupt-cells = <2>;
 		gpio-controller;
@@ -380,6 +381,8 @@
 			"EXPIO_0_4", "EXPIO_0_5", "EXPIO_0_6", "EXPIO_0_7",
 			"EXPIO_1_0", "EXPIO_1_1", "EXPIO_1_2", "EXPIO_1_3",
 			"EXPIO_1_4", "EXPIO_1_5", "EXPIO_1_6", "EXPIO_1_7";
+
+		/* EXPIO_0_0 is DISP0_PWD but as that signal is not used for imx93-microgea it's left as is */
 
 		EXPIO_0_1 {
 			gpio-hog;
@@ -620,7 +623,7 @@
 
 	pinctrl_pcal6416: pcal6416grp {
 		fsl,pins = <
-			MX93_PAD_ENET2_RD3__GPIO4_IO27			0x31e /* INTERRUPT */
+			MX93_PAD_ENET2_RD3__GPIO4_IO27			0x31e /* INTERRUPT - this is nTOUCH1_INT signal but it is not used for mx93-microgea as such iot was left as fake interrupt for the gpio_expander */
 			MX93_PAD_SD1_STROBE__GPIO3_IO18			0x31e /* RESET */
 		>;
 	};
@@ -767,11 +770,6 @@
 		"", "", "", "", "", "", "DISP0_PWD", "",
 		"", "", "", "", "", "", "", "",
 		"", "WL_PDN", "", "", "", "", "", "";
-		DISP0_PWD {
-			gpio-hog;
-			gpios = <14 0>;
-			output-high;
-		};
 
 		ENB_RFPS {
 			gpio-hog;

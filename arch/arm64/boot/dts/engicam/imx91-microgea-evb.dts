@@ -13,7 +13,7 @@
 };
 
 / {
-	model = "i.MX91 Microgea EVB - rev 651A - 1.0 | ";
+	model = "NXP i.MX91 Microgea EValuation Board revB\n";
 	compatible = "eng,MicrogeaEVB", "fsl,imx91";
 
 	chosen {
@@ -289,6 +289,13 @@
 			"EXPIO_1_0", "EXPIO_1_1", "EXPIO_1_2", "EXPIO_1_3",
 			"EXPIO_1_4", "EXPIO_1_5", "EXPIO_1_6", "EXPIO_1_7";
 
+            EXPIO_0_0 {
+                gpio-hog;
+                gpios = <0 0>;
+                output-high;
+				line-name = "DISP0_PWD";
+            };
+
 			EXPIO_0_1 {
 				gpio-hog;
 				gpios = <1 0>;
@@ -324,8 +331,9 @@
 		compatible = "edt,edt-ft5406";
 		reg = <0x38>;
 		pinctrl-names = "default";
-		interrupt-parent = <&pcal6524>;
-		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
+		pinctrl-0 = <&pinctrl_touch_int>;
+		interrupt-parent = <&gpio4>; /* nTOUCH1_INT */
+		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
 	};
 
 	pcf8523: rtc@68 {
@@ -555,7 +563,6 @@
 			MX91_PAD_GPIO_IO25__MEDIAMIX_DISP_DATA21	0x31e
 			MX91_PAD_GPIO_IO26__MEDIAMIX_DISP_DATA22	0x31e
 			MX91_PAD_GPIO_IO27__MEDIAMIX_DISP_DATA23	0x31e
-			MX91_PAD_ENET2_MDC__GPIO4_IO14				0x31e /* DISP0_PWD */
 		>;
 	};
 
@@ -586,6 +593,12 @@
 		fsl,pins = <
 			MX91_PAD_GPIO_IO28__LPI2C3_SDA			0x40000b9e
 			MX91_PAD_GPIO_IO29__LPI2C3_SCL			0x40000b9e
+		>;
+	};
+
+	pinctrl_touch_int: touchintgrp {
+		fsl,pins = <
+			MX91_PAD_ENET2_MDC__GPIO4_IO14				0x31e /* nTOUCH1_INT */
 		>;
 	};
 
@@ -716,14 +729,14 @@
 &gpio4 {
 	gpio-line-names =
 		"", "", "", "", "", "", "", "",
-		"", "", "", "", "", "", "DISP0_PWD", "",
+		"", "", "", "", "", "", "nTOUCH_INT", "",
 		"", "", "", "", "", "", "", "",
 		"", "WL_PDN", "", "", "", "", "", "";
-		DISP0_PWD {
-			gpio-hog;
-			gpios = <14 0>;
-			output-high;
-		};
+		// DISP0_PWD {
+		// 	gpio-hog;
+		// 	gpios = <14 0>;
+		// 	output-high;
+		// };
 
 		WL_PDN {
 			gpio-hog;
